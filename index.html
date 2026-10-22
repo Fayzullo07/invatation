@@ -75,7 +75,7 @@ html.js #intro { display: grid; }
 #intro::before { content: ""; position: absolute; inset: 0; background-image: var(--pat); opacity: .7; }
 .star-bg { position: absolute; left: 50%; top: 42%; width: min(150vw, 900px); aspect-ratio: 1; transform: translate(-50%, -50%); opacity: .35; animation: spin 90s linear infinite; pointer-events: none; }
 @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-.env-wrap { position: relative; perspective: 1100px; }
+.env-wrap { position: relative; }
 .env { position: relative; width: min(82vw, 380px); aspect-ratio: 3 / 2; cursor: pointer; filter: drop-shadow(0 30px 50px rgba(0,0,0,.65)); animation: float 3.4s ease-in-out infinite; }
 .env.open { animation: none; }
 @keyframes float { 50% { transform: translateY(-10px); } }
@@ -83,13 +83,14 @@ html.js #intro { display: grid; }
 @keyframes glow { 50% { opacity: .35; transform: scale(1.1); } }
 .env .back { z-index: 0; position: absolute; inset: 0; background: linear-gradient(160deg, #eed79d, #b58a38); border-radius: 6px; }
 .env .card { z-index: 2; position: absolute; left: 6%; right: 6%; top: 8%; height: 84%; background: var(--paper); border-radius: 4px; border: 1px solid var(--gold); display: grid; place-items: center; text-align: center; color: var(--paper-ink); transition: transform 1.3s cubic-bezier(.2,.8,.2,1) .6s; font-family: var(--display); font-size: clamp(22px, 6vw, 30px); font-style: italic; font-weight: 600; line-height: 1.15; padding: 8px; background-image: var(--pat); }
-.env.open .card { transform: translateY(-64%); }
+.env.open .card { transform: translateY(-74%); }
 .env.out .card { z-index: 6; transform: translateY(-46%) scale(1.5); transition: transform 1s cubic-bezier(.5,0,.2,1) 0s, box-shadow 1s; box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+@media (max-width: 520px) { .env.out .card { transform: translateY(-40%) scale(1.22); } }
 .env .card small.cn { display: block; margin-top: 8px; font: 600 .55em/1.2 var(--display); font-style: normal; letter-spacing: .05em; color: #7a5a1e; }
 .env .front { z-index: 3; position: absolute; inset: 0; border-radius: 6px; background: linear-gradient(160deg, #f4e0ac, #c49a45); clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%); }
 .env .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.16), transparent 55%); }
-.env .flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; background: linear-gradient(180deg, #d4af61, #f2d994); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform .8s ease, z-index 0s .4s; z-index: 4; border-radius: 6px 6px 0 0; }
-.env.open .flap { transform: rotateX(180deg); z-index: 1; }
+.env .flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; background: linear-gradient(180deg, #d4af61, #f2d994); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform .8s ease, z-index 0s .4s, filter .5s ease .3s; z-index: 4; border-radius: 6px 6px 0 0; }
+.env.open .flap { transform: scaleY(-1); z-index: 1; filter: brightness(.78); }
 .seal { position: absolute; left: 50%; top: 50%; width: 23%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; z-index: 5; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #d13a33, #6f100c 78%); box-shadow: 0 5px 14px rgba(0,0,0,.5), inset 0 0 0 3px rgba(255,255,255,.14), inset 0 0 0 7px rgba(0,0,0,.12); color: #f9dc9f; font-family: var(--display); font-weight: 700; font-size: clamp(14px, 4vw, 20px); transition: opacity .3s, transform .5s; animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.09); } }
 .env.open .seal { opacity: 0; animation: none; }
@@ -98,8 +99,8 @@ html.js #intro { display: grid; }
 @keyframes blink { 50% { opacity: .35; } }
 
 /* section dots */
-.dots { position: fixed; z-index: 80; right: max(10px, env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; transition: opacity .6s; }
-body.locked .dots { opacity: 0; pointer-events: none; }
+.dots { position: fixed; z-index: 80; right: max(10px, env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; opacity: 0; pointer-events: none; transition: opacity .6s; }
+.dots.show { opacity: 1; pointer-events: auto; }
 .dots button { all: unset; position: relative; cursor: pointer; width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--gold); transition: transform .3s, background .3s, box-shadow .3s; }
 .dots button::before { content: ""; position: absolute; inset: -9px; }
 .dots button.on { background: var(--gold); box-shadow: 0 0 10px var(--gold-hi); transform: scale(1.3); }
@@ -535,6 +536,7 @@ html,body{margin:0}
     setTimeout(function () {
       intro.classList.add("gone");
       document.body.classList.remove("locked");
+      dotsEl.classList.add("show");
       window.scrollTo(0, 0);
       if (!reduce) { burst(FWW * 0.3, FWH * 0.35); burst(FWW * 0.7, FWH * 0.3); setTimeout(function () { show(4); }, 500); }
     }, 3100);
