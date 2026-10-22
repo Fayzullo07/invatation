@@ -771,7 +771,7 @@ html,body{margin:0}
   }
   function stopSynth() { playing = false; clearTimeout(timer); if (ctx) { try { ctx.suspend(); } catch (e) {} } btn.setAttribute("aria-pressed", "false"); }
   /* A real song: put the file next to index.html as "music.mp3" and set HAS_TRACK = true. */
-  var HAS_TRACK = false, track = null;
+  var HAS_TRACK = true, track = null;
   function startMusic() {
     if (!HAS_TRACK) { startSynth(); return; }
     try {
