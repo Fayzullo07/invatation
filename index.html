@@ -580,6 +580,18 @@ html,body{margin:0}
       if (msgEl.value.trim()) rows.push(d.mNote + ": " + msgEl.value.trim());
       return rows.join("\n");
     }
+    function esc(x) { return String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+    function channelText(att) {
+      var yes = att === "yes", note = msgEl.value.trim(), when = "";
+      try { when = new Date().toLocaleString("ru-RU", { timeZone: "Asia/Tashkent", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", " ·"); } catch (err) {}
+      var L = ["💌 <b>Yangi javob keldi</b>", "━━━━━━━━━━━━━━", "",
+        "👤 <b>" + esc(nameEl.value.trim()) + "</b>", "",
+        yes ? "✅ <b>To'yga keladi</b>" : "❌ <b>Kela olmaydi</b>"];
+      if (yes) L.push("👥 Mehmonlar soni: <b>" + guests + "</b>");
+      if (note) L.push("", "💬 <b>Tilak:</b>", "<blockquote>" + esc(note) + "</blockquote>");
+      L.push("", "━━━━━━━━━━━━━━", "🕐 " + when + "  ·  🌐 " + lang.toUpperCase());
+      return L.join("\n");
+    }
     function tgUrl(text) {
       return RSVP_TG ? "https://t.me/" + RSVP_TG + "?text=" + encodeURIComponent(text) : "https://t.me/share/url?url=" + encodeURIComponent(siteUrl) + "&text=" + encodeURIComponent(text);
     }
@@ -605,7 +617,7 @@ html,body{margin:0}
         var btn = form.querySelector(".send"); btn.disabled = true;
         fetch("https://api.telegram.org/bot" + TG_BOT_TOKEN + "/sendMessage", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id: TG_CHAT_ID, text: (att === "yes" ? "✅ " : "❌ ") + lastText })
+          body: JSON.stringify({ chat_id: TG_CHAT_ID, text: channelText(att), parse_mode: "HTML", disable_web_page_preview: true })
         }).then(function (r) { return r.json(); }).then(function (j) { btn.disabled = false; finish(!!j.ok); })
           .catch(function () { btn.disabled = false; finish(false); });
       } else finish(false);
