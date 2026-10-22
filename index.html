@@ -81,14 +81,16 @@ html.js #intro { display: grid; }
 @keyframes float { 50% { transform: translateY(-10px); } }
 .env::before { content: ""; position: absolute; inset: -30%; background: radial-gradient(circle, rgba(251,231,168,.35), transparent 60%); animation: glow 3s ease-in-out infinite; pointer-events: none; }
 @keyframes glow { 50% { opacity: .35; transform: scale(1.1); } }
-.env .back { position: absolute; inset: 0; background: linear-gradient(160deg, #eed79d, #b58a38); border-radius: 6px; }
-.env .card { position: absolute; left: 6%; right: 6%; top: 8%; height: 84%; background: var(--paper); border-radius: 4px; border: 1px solid var(--gold); display: grid; place-items: center; text-align: center; color: var(--paper-ink); transition: transform 1.3s cubic-bezier(.2,.8,.2,1) .6s; font-family: var(--display); font-size: clamp(22px, 6vw, 30px); font-style: italic; font-weight: 600; line-height: 1.15; padding: 8px; background-image: var(--pat); }
+.env .back { z-index: 0; position: absolute; inset: 0; background: linear-gradient(160deg, #eed79d, #b58a38); border-radius: 6px; }
+.env .card { z-index: 2; position: absolute; left: 6%; right: 6%; top: 8%; height: 84%; background: var(--paper); border-radius: 4px; border: 1px solid var(--gold); display: grid; place-items: center; text-align: center; color: var(--paper-ink); transition: transform 1.3s cubic-bezier(.2,.8,.2,1) .6s; font-family: var(--display); font-size: clamp(22px, 6vw, 30px); font-style: italic; font-weight: 600; line-height: 1.15; padding: 8px; background-image: var(--pat); }
 .env.open .card { transform: translateY(-64%); }
-.env .front { position: absolute; inset: 0; border-radius: 6px; background: linear-gradient(160deg, #f4e0ac, #c49a45); clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%); }
+.env.out .card { z-index: 6; transform: translateY(-46%) scale(1.5); transition: transform 1s cubic-bezier(.5,0,.2,1) 0s, box-shadow 1s; box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+.env .card small.cn { display: block; margin-top: 8px; font: 600 .55em/1.2 var(--display); font-style: normal; letter-spacing: .05em; color: #7a5a1e; }
+.env .front { z-index: 3; position: absolute; inset: 0; border-radius: 6px; background: linear-gradient(160deg, #f4e0ac, #c49a45); clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%); }
 .env .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.16), transparent 55%); }
-.env .flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; background: linear-gradient(180deg, #d4af61, #f2d994); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform .8s ease, z-index 0s .4s; z-index: 3; border-radius: 6px 6px 0 0; }
-.env.open .flap { transform: rotateX(180deg); z-index: 0; }
-.seal { position: absolute; left: 50%; top: 50%; width: 23%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; z-index: 4; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #d13a33, #6f100c 78%); box-shadow: 0 5px 14px rgba(0,0,0,.5), inset 0 0 0 3px rgba(255,255,255,.14), inset 0 0 0 7px rgba(0,0,0,.12); color: #f9dc9f; font-family: var(--display); font-weight: 700; font-size: clamp(14px, 4vw, 20px); transition: opacity .3s, transform .5s; animation: pulse 2s ease-in-out infinite; }
+.env .flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; background: linear-gradient(180deg, #d4af61, #f2d994); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform .8s ease, z-index 0s .4s; z-index: 4; border-radius: 6px 6px 0 0; }
+.env.open .flap { transform: rotateX(180deg); z-index: 1; }
+.seal { position: absolute; left: 50%; top: 50%; width: 23%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; z-index: 5; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #d13a33, #6f100c 78%); box-shadow: 0 5px 14px rgba(0,0,0,.5), inset 0 0 0 3px rgba(255,255,255,.14), inset 0 0 0 7px rgba(0,0,0,.12); color: #f9dc9f; font-family: var(--display); font-weight: 700; font-size: clamp(14px, 4vw, 20px); transition: opacity .3s, transform .5s; animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.09); } }
 .env.open .seal { opacity: 0; animation: none; }
 .intro-hint { position: relative; font-family: var(--display); font-style: italic; font-size: 26px; color: var(--gold-hi); }
@@ -225,7 +227,7 @@ html,body{margin:0}
   <div class="env-wrap">
     <div class="env" id="env" tabindex="0" role="button" aria-label="Konvertni oching">
       <div class="back"></div>
-      <div class="card"><span data-i18n="cardFront">Taklifnoma</span></div>
+      <div class="card"><div><span data-i18n="cardFront">Taklifnoma</span><small class="cn"><span data-i18n="n2a">Davidjon</span> &amp; <span data-i18n="n2b">Sarvinozxon</span></small></div></div>
       <div class="front"></div>
       <div class="flap"></div>
       <div class="seal">D·S</div>
@@ -529,12 +531,13 @@ html,body{margin:0}
     if (opened) return; opened = true;
     env.classList.add("open");
     startMusic();
+    setTimeout(function () { env.classList.add("out"); }, 2000);
     setTimeout(function () {
       intro.classList.add("gone");
       document.body.classList.remove("locked");
       window.scrollTo(0, 0);
       if (!reduce) { burst(FWW * 0.3, FWH * 0.35); burst(FWW * 0.7, FWH * 0.3); setTimeout(function () { show(4); }, 500); }
-    }, 2400);
+    }, 3100);
   }
   env.addEventListener("click", openEnv);
   intro.addEventListener("click", openEnv);
