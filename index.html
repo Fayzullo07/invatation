@@ -583,7 +583,7 @@ html,body{margin:0}
     function esc(x) { return String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
     function channelText(att) {
       var yes = att === "yes", note = msgEl.value.trim(), when = "";
-      try { when = new Date().toLocaleString("ru-RU", { timeZone: "Asia/Tashkent", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", " ·"); } catch (err) {}
+      try { when = new Date().toLocaleString("ru-RU", { timeZone: "Asia/Tashkent", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }).replace(",", " ·"); } catch (err) {}
       var L = ["💌 <b>Yangi javob keldi</b>", "━━━━━━━━━━━━━━", "",
         "👤 <b>" + esc(nameEl.value.trim()) + "</b>", "",
         yes ? "✅ <b>To'yga keladi</b>" : "❌ <b>Kela olmaydi</b>"];
