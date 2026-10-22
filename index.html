@@ -589,7 +589,7 @@ html,body{margin:0}
         yes ? "✅ <b>To'yga keladi</b>" : "❌ <b>Kela olmaydi</b>"];
       if (yes) L.push("👥 Mehmonlar soni: <b>" + guests + "</b>");
       if (note) L.push("", "💬 <b>Tilak:</b>", "<blockquote>" + esc(note) + "</blockquote>");
-      L.push("", "━━━━━━━━━━━━━━", "🕐 " + when + "  ·  🌐 " + lang.toUpperCase());
+      L.push("", "━━━━━━━━━━━━━━", "🕐 " + when);
       return L.join("\n");
     }
     function tgUrl(text) {
