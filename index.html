@@ -397,8 +397,8 @@ html,body{margin:0}
       </form>
       <div class="thanks" id="rsvpThanks" hidden>
         <p class="thx gold" id="thxTitle">Rahmat!</p>
-        <p class="thx-sub" data-i18n="tgNote">Telegram ochilgach, "Yuborish" tugmasini bosing.</p>
-        <div class="mlinks two">
+        <p class="thx-sub" id="thxSub" data-i18n="tgNote">Telegram ochilgach, "Yuborish" tugmasini bosing.</p>
+        <div class="mlinks two" id="thxBtns">
           <a class="primary" id="tgLink" href="#" target="_blank" rel="noopener" data-i18n="tgSend">Telegram orqali yuborish</a>
           <button type="button" class="ghostbtn" id="copyMsg" data-i18n="copyMsg">Matnni nusxalash</button>
         </div>
@@ -435,7 +435,7 @@ html,body{margin:0}
       wd: ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"],
       countLabel: "Tantanaga qolgan vaqt", cDays: "kun", cHours: "soat", cMin: "daqiqa", cSec: "soniya",
       placeLabel: "Manzil", venue: "“Shukrona” to'yxonasi", addr: "Qamashi tumani", map: "Xaritada ko'rish", mapG: "Google Maps", mapY: "Yandex", route: "Yo'nalish", copied: "Nusxalandi", mapStreet: "Xarita", mapSat: "Sputnik",
-      rsvpLabel: "Javob bering", rsvpTitle: "To'yga kelasizmi?", rsvpSub: "Kelishingizni oldindan bildirsangiz, xursand bo'lamiz", fName: "Ism va familiya", fNamePh: "Masalan: Aziz Karimov", yes: "Albatta kelaman", no: "Kela olmayman", fGuests: "Necha kishi kelasiz?", fGuestsHint: "o'zingiz bilan birga", fMsg: "Tilak yoki xabar", fMsgPh: "Yangi turmush qurganlarga tilak yozing...", send: "Yuborish", errName: "Ism va familiyangizni yozing", errChoice: "Kelish-kelmasligingizni tanlang", thanksYes: "Rahmat! Sizni kutamiz", thanksNo: "Xabaringiz uchun rahmat", tgSend: "Telegram orqali yuborish", copyMsg: "Matnni nusxalash", copiedMsg: "Nusxalandi", tgNote: "Telegram ochilgach, \"Yuborish\" tugmasini bosing.", mHello: "Assalomu alaykum! Taklifnoma uchun rahmat.", mName: "Ism familiya", mAns: "Javob", mYes: "Albatta kelaman", mNo: "Afsuski, kela olmayman", mGuests: "Kishi soni", mNote: "Tilak",
+      rsvpLabel: "Javob bering", rsvpTitle: "To'yga kelasizmi?", rsvpSub: "Kelishingizni oldindan bildirsangiz, xursand bo'lamiz", fName: "Ism va familiya", fNamePh: "Masalan: Aziz Karimov", yes: "Albatta kelaman", no: "Kela olmayman", fGuests: "Necha kishi kelasiz?", fGuestsHint: "o'zingiz bilan birga", fMsg: "Tilak yoki xabar", fMsgPh: "Yangi turmush qurganlarga tilak yozing...", send: "Yuborish", errName: "Ism va familiyangizni yozing", errChoice: "Kelish-kelmasligingizni tanlang", thanksYes: "Rahmat! Sizni kutamiz", thanksNo: "Xabaringiz uchun rahmat", tgSend: "Telegram orqali yuborish", copyMsg: "Matnni nusxalash", copiedMsg: "Nusxalandi", tgNote: "Telegram ochilgach, \"Yuborish\" tugmasini bosing.", sentOk: "Xabaringiz egalariga yetkazildi.", mHello: "Assalomu alaykum! Taklifnoma uchun rahmat.", mName: "Ism familiya", mAns: "Javob", mYes: "Albatta kelaman", mNo: "Afsuski, kela olmayman", mGuests: "Kishi soni", mNote: "Tilak",
       close: "Sizni kutib qolamiz!", regards: "Hurmat ila:", hosts: "Urol bobo o'g'li Muxiddin Xudoynazarovlar oilasi", salut: "Salyut!"
     },
     cy: {
@@ -448,7 +448,7 @@ html,body{margin:0}
       wd: ["Ду", "Се", "Чо", "Па", "Жу", "Ша", "Як"],
       countLabel: "Тантанага қолган вақт", cDays: "кун", cHours: "соат", cMin: "дақиқа", cSec: "сония",
       placeLabel: "Манзил", venue: "“Шукрона” тўйхонаси", addr: "Қамаши тумани", map: "Харитада кўриш", mapG: "Google Maps", mapY: "Yandex", route: "Йўналиш", copied: "Нусхаланди", mapStreet: "Харита", mapSat: "Йўлдош",
-      rsvpLabel: "Жавоб беринг", rsvpTitle: "Тўйга келасизми?", rsvpSub: "Келишингизни олдиндан билдирсангиз, хурсанд бўламиз", fName: "Исм ва фамилия", fNamePh: "Масалан: Азиз Каримов", yes: "Албатта келаман", no: "Кела олмайман", fGuests: "Неча киши келасиз?", fGuestsHint: "ўзингиз билан бирга", fMsg: "Тилак ёки хабар", fMsgPh: "Янги турмуш қурганларга тилак ёзинг...", send: "Юбориш", errName: "Исм ва фамилиянгизни ёзинг", errChoice: "Келиш-келмаслигингизни танланг", thanksYes: "Раҳмат! Сизни кутамиз", thanksNo: "Хабарингиз учун раҳмат", tgSend: "Telegram орқали юбориш", copyMsg: "Матнни нусхалаш", copiedMsg: "Нусхаланди", tgNote: "Telegram очилгач, «Юбориш» тугмасини босинг.", mHello: "Ассалому алайкум! Таклифнома учун раҳмат.", mName: "Исм фамилия", mAns: "Жавоб", mYes: "Албатта келаман", mNo: "Афсуски, кела олмайман", mGuests: "Киши сони", mNote: "Тилак",
+      rsvpLabel: "Жавоб беринг", rsvpTitle: "Тўйга келасизми?", rsvpSub: "Келишингизни олдиндан билдирсангиз, хурсанд бўламиз", fName: "Исм ва фамилия", fNamePh: "Масалан: Азиз Каримов", yes: "Албатта келаман", no: "Кела олмайман", fGuests: "Неча киши келасиз?", fGuestsHint: "ўзингиз билан бирга", fMsg: "Тилак ёки хабар", fMsgPh: "Янги турмуш қурганларга тилак ёзинг...", send: "Юбориш", errName: "Исм ва фамилиянгизни ёзинг", errChoice: "Келиш-келмаслигингизни танланг", thanksYes: "Раҳмат! Сизни кутамиз", thanksNo: "Хабарингиз учун раҳмат", tgSend: "Telegram орқали юбориш", copyMsg: "Матнни нусхалаш", copiedMsg: "Нусхаланди", tgNote: "Telegram очилгач, «Юбориш» тугмасини босинг.", sentOk: "Хабарингиз эгаларига етказилди.", mHello: "Ассалому алайкум! Таклифнома учун раҳмат.", mName: "Исм фамилия", mAns: "Жавоб", mYes: "Албатта келаман", mNo: "Афсуски, кела олмайман", mGuests: "Киши сони", mNote: "Тилак",
       close: "Сизни кутиб қоламиз!", regards: "Ҳурмат ила:", hosts: "Урол бобо ўғли Мухиддин Худойназаровлар оиласи", salut: "Салют!"
     },
     ru: {
@@ -461,7 +461,7 @@ html,body{margin:0}
       wd: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
       countLabel: "До торжества осталось", cDays: "дней", cHours: "часов", cMin: "минут", cSec: "секунд",
       placeLabel: "Адрес", venue: "Банкетный зал «Шукрона»", addr: "Камашинский район", map: "Открыть на карте", mapG: "Google Maps", mapY: "Yandex", route: "Маршрут", copied: "Скопировано", mapStreet: "Карта", mapSat: "Спутник",
-      rsvpLabel: "Ответьте нам", rsvpTitle: "Вы придёте на свадьбу?", rsvpSub: "Будем рады, если вы заранее сообщите о своём решении", fName: "Имя и фамилия", fNamePh: "Например: Азиз Каримов", yes: "Обязательно приду", no: "Не смогу прийти", fGuests: "Сколько вас будет?", fGuestsHint: "включая вас", fMsg: "Пожелание или сообщение", fMsgPh: "Напишите пожелание молодожёнам...", send: "Отправить", errName: "Укажите имя и фамилию", errChoice: "Выберите, придёте ли вы", thanksYes: "Спасибо! Ждём вас", thanksNo: "Спасибо за ответ", tgSend: "Отправить в Telegram", copyMsg: "Скопировать текст", copiedMsg: "Скопировано", tgNote: "Когда откроется Telegram, нажмите «Отправить».", mHello: "Ассалому алейкум! Спасибо за приглашение.", mName: "Имя и фамилия", mAns: "Ответ", mYes: "Обязательно приду", mNo: "К сожалению, не смогу прийти", mGuests: "Количество гостей", mNote: "Пожелание",
+      rsvpLabel: "Ответьте нам", rsvpTitle: "Вы придёте на свадьбу?", rsvpSub: "Будем рады, если вы заранее сообщите о своём решении", fName: "Имя и фамилия", fNamePh: "Например: Азиз Каримов", yes: "Обязательно приду", no: "Не смогу прийти", fGuests: "Сколько вас будет?", fGuestsHint: "включая вас", fMsg: "Пожелание или сообщение", fMsgPh: "Напишите пожелание молодожёнам...", send: "Отправить", errName: "Укажите имя и фамилию", errChoice: "Выберите, придёте ли вы", thanksYes: "Спасибо! Ждём вас", thanksNo: "Спасибо за ответ", tgSend: "Отправить в Telegram", copyMsg: "Скопировать текст", copiedMsg: "Скопировано", tgNote: "Когда откроется Telegram, нажмите «Отправить».", sentOk: "Ваше сообщение доставлено хозяевам.", mHello: "Ассалому алейкум! Спасибо за приглашение.", mName: "Имя и фамилия", mAns: "Ответ", mYes: "Обязательно приду", mNo: "К сожалению, не смогу прийти", mGuests: "Количество гостей", mNote: "Пожелание",
       close: "Будем ждать Вас!", regards: "С уважением:", hosts: "Семья Мухиддина Худойназарова, сына Урол-бобо", salut: "Салют!"
     }
   };
@@ -558,7 +558,9 @@ html,body{margin:0}
   });
 
   /* ---------- RSVP: the answer opens in the host's Telegram ---------- */
-  var RSVP_TG = ""; // host's Telegram username, without @
+  var RSVP_TG = ""; // fallback: host's Telegram username, without @
+  var TG_BOT_TOKEN = ""; // Telegram bot token (from @BotFather)
+  var TG_CHAT_ID = ""; // channel id, e.g. -1001234567890 or @channelname
   (function () {
     var form = document.getElementById("rsvpForm");
     if (!form) return;
@@ -591,9 +593,22 @@ html,body{margin:0}
       lastText = build(att); lastAns = att;
       var url = tgUrl(lastText);
       tgLink.href = url;
-      form.hidden = true; thanks.hidden = false; refresh();
-      if (att === "yes" && !reduce) { burst(FWW * 0.3, FWH * 0.4); burst(FWW * 0.7, FWH * 0.35); }
-      try { window.open(url, "_blank", "noopener"); } catch (err) {}
+      var sub = document.getElementById("thxSub"), btns = document.getElementById("thxBtns");
+      function finish(sent) {
+        form.hidden = true; thanks.hidden = false; refresh();
+        sub.hidden = !sent && false; btns.hidden = sent;
+        sub.setAttribute("data-i18n", sent ? "sentOk" : "tgNote"); sub.textContent = T[lang][sent ? "sentOk" : "tgNote"];
+        if (att === "yes" && !reduce) { burst(FWW * 0.3, FWH * 0.4); burst(FWW * 0.7, FWH * 0.35); }
+        if (!sent) { try { window.open(url, "_blank", "noopener"); } catch (err) {} }
+      }
+      if (TG_BOT_TOKEN && TG_CHAT_ID) {
+        var btn = form.querySelector(".send"); btn.disabled = true;
+        fetch("https://api.telegram.org/bot" + TG_BOT_TOKEN + "/sendMessage", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: TG_CHAT_ID, text: (att === "yes" ? "✅ " : "❌ ") + lastText })
+        }).then(function (r) { return r.json(); }).then(function (j) { btn.disabled = false; finish(!!j.ok); })
+          .catch(function () { btn.disabled = false; finish(false); });
+      } else finish(false);
     });
     copyBtn.addEventListener("click", function () {
       function done() { copyBtn.textContent = T[lang].copiedMsg; setTimeout(function () { copyBtn.textContent = T[lang].copyMsg; }, 1500); }
