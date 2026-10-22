@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#04201a">
 <title>To'y Taklifnomasi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script>
 document.documentElement.classList.add('js');
@@ -180,12 +181,36 @@ html.js .nm.in { opacity: 1; letter-spacing: .01em; filter: none; }
 .count span { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
 
 /* venue */
-.venue-card { max-width: 560px; margin: 0 auto; padding: clamp(36px, 8vw, 60px) clamp(18px, 5vw, 40px); border: 1px solid var(--gold-lo); outline: 1px solid rgba(217,182,106,.4); outline-offset: 9px; background: var(--pat), linear-gradient(180deg, rgba(14,70,54,.5), rgba(3,23,15,.5)); position: relative; }
+.venue-card { max-width: 640px; margin: 0 auto; padding: clamp(26px, 5vw, 40px) clamp(14px, 4vw, 34px); border: 1px solid var(--gold-lo); outline: 1px solid rgba(217,182,106,.4); outline-offset: 9px; background: var(--pat), linear-gradient(180deg, rgba(14,70,54,.5), rgba(3,23,15,.5)); position: relative; }
 .venue-card::before, .venue-card::after { content: ""; position: absolute; width: 44px; height: 44px; border: 2px solid var(--gold); }
 .venue-card::before { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
 .venue-card::after { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
-.venue { font-family: var(--display); font-size: clamp(34px, 9vw, 54px); font-weight: 700; margin: 0; line-height: 1.08; text-wrap: balance; }
-.addr { color: var(--ink-soft); margin: 10px 0 26px; font-size: 17px; }
+.venue { font-family: var(--display); font-size: clamp(30px, 8vw, 48px); font-weight: 700; margin: 0; line-height: 1.08; text-wrap: balance; }
+.addr { color: var(--ink-soft); margin: 6px 0 18px; font-size: 17px; }
+.mapwrap { position: relative; border: 1px solid var(--gold-lo); box-shadow: 0 0 0 4px rgba(4,32,26,.9), 0 0 0 5px rgba(217,182,106,.5), 0 24px 50px rgba(0,0,0,.5); }
+.mapwrap::after { content: ""; position: absolute; inset: 0; z-index: 500; pointer-events: none; box-shadow: inset 0 0 56px rgba(4,32,26,.75); }
+#map { height: clamp(200px, 31vh, 330px); background: var(--pat), #0a2a22; }
+.leaflet-container { font-family: var(--body); background: #0a2a22; outline: 0; }
+.leaflet-tile-pane { filter: sepia(.55) hue-rotate(112deg) saturate(1.25) brightness(1.12) contrast(1.05); }
+.leaflet-bar { border: 1px solid var(--gold-lo); box-shadow: none; }
+.leaflet-bar a, .leaflet-bar a:hover { background: rgba(4,32,26,.9); color: var(--gold-hi); border-bottom: 1px solid var(--gold-lo); }
+.leaflet-control-zoom { z-index: 900; }
+.leaflet-control-attribution { background: rgba(4,32,26,.75) !important; color: var(--ink-soft) !important; font-size: 10px; }
+.leaflet-control-attribution a { color: var(--gold) !important; }
+.pinwrap { background: none; border: 0; }
+.pin { position: relative; width: 44px; height: 58px; filter: drop-shadow(0 6px 8px rgba(0,0,0,.55)); animation: pinbob 2.4s ease-in-out infinite; }
+.pin .pulse { position: absolute; left: 50%; bottom: -4px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: rgba(251,231,168,.6); animation: pulsering 2.4s ease-out infinite; }
+@keyframes pulsering { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(5); opacity: 0; } }
+@keyframes pinbob { 50% { transform: translateY(-5px); } }
+.leaflet-tooltip.pintip { background: rgba(4,32,26,.94); border: 1px solid var(--gold); color: var(--gold-hi); font: 700 16px var(--display); box-shadow: 0 6px 18px rgba(0,0,0,.5); padding: 4px 12px; white-space: nowrap; }
+.leaflet-tooltip-top.pintip::before { border-top-color: var(--gold); }
+.coords { all: unset; cursor: pointer; position: absolute; left: 10px; bottom: 10px; z-index: 900; padding: 6px 10px; font: 500 11px var(--body); letter-spacing: .1em; color: var(--gold-hi); background: rgba(4,32,26,.88); border: 1px solid var(--gold-lo); font-variant-numeric: tabular-nums; }
+.coords:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+.mlinks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+.mlinks a { display: block; text-decoration: none; text-align: center; padding: 13px 6px; border: 1px solid var(--gold); color: var(--gold-hi); font: 500 12px var(--body); letter-spacing: .12em; text-transform: uppercase; transition: transform .2s, filter .2s; }
+.mlinks a:hover { transform: translateY(-2px); filter: brightness(1.15); }
+.mlinks a.primary { background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: #2a1d05; border-color: transparent; box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+.mlinks a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
 
 /* closing */
 #closing .big { font-family: var(--display); font-weight: 700; font-size: clamp(40px, 11vw, 78px); line-height: 1.02; margin: 0; text-wrap: balance; }
@@ -297,7 +322,15 @@ html,body{margin:0}
       <p class="eyebrow" data-i18n="placeLabel">Manzil</p>
       <p class="venue gold" data-i18n="venue">"Shukrona" to'yxonasi</p>
       <p class="addr" data-i18n="addr">Qamashi tumani</p>
-      <a class="btn" id="mapBtn" href="https://www.google.com/maps/search/?api=1&query=Shukrona+to%27yxonasi+Qamashi" target="_blank" rel="noopener" data-i18n="map">Xaritada ko'rish</a>
+      <div class="mapwrap">
+        <div id="map" role="region" aria-label="Xarita"></div>
+        <button type="button" class="coords" id="coordsBtn"><span>38.820827, 66.461820</span></button>
+      </div>
+      <div class="mlinks">
+        <a class="primary" href="https://www.google.com/maps?q=38.820827,66.461820" target="_blank" rel="noopener" data-i18n="mapG">Google Maps</a>
+        <a href="https://yandex.com/maps/?pt=66.461820,38.820827&z=17&l=map" target="_blank" rel="noopener" data-i18n="mapY">Yandex</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=38.820827,66.461820" target="_blank" rel="noopener" data-i18n="route">Yo'nalish</a>
+      </div>
     </div>
   </section>
 
@@ -312,6 +345,7 @@ html,body{margin:0}
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 (function () {
   window.__ok = true;
@@ -328,7 +362,7 @@ html,body{margin:0}
       dateLabel: "Tantana sanasi", dayLabel: "Hafta kuni", weekday: "Dushanba", month: "Noyabr", timeLabel: "Boshlanish vaqti",
       wd: ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"],
       countLabel: "Tantanaga qolgan vaqt", cDays: "kun", cHours: "soat", cMin: "daqiqa", cSec: "soniya",
-      placeLabel: "Manzil", venue: "“Shukrona” to'yxonasi", addr: "Qamashi tumani", map: "Xaritada ko'rish",
+      placeLabel: "Manzil", venue: "“Shukrona” to'yxonasi", addr: "Qamashi tumani", map: "Xaritada ko'rish", mapG: "Google Maps", mapY: "Yandex", route: "Yo'nalish", copied: "Nusxalandi",
       close: "Sizni kutib qolamiz!", regards: "Hurmat ila:", hosts: "Urol bobo o'g'li Muxiddin Xudoynazarovlar oilasi", salut: "Salyut!"
     },
     cy: {
@@ -340,7 +374,7 @@ html,body{margin:0}
       dateLabel: "Тантана санаси", dayLabel: "Ҳафта куни", weekday: "Душанба", month: "Ноябрь", timeLabel: "Бошланиш вақти",
       wd: ["Ду", "Се", "Чо", "Па", "Жу", "Ша", "Як"],
       countLabel: "Тантанага қолган вақт", cDays: "кун", cHours: "соат", cMin: "дақиқа", cSec: "сония",
-      placeLabel: "Манзил", venue: "“Шукрона” тўйхонаси", addr: "Қамаши тумани", map: "Харитада кўриш",
+      placeLabel: "Манзил", venue: "“Шукрона” тўйхонаси", addr: "Қамаши тумани", map: "Харитада кўриш", mapG: "Google Maps", mapY: "Yandex", route: "Йўналиш", copied: "Нусхаланди",
       close: "Сизни кутиб қоламиз!", regards: "Ҳурмат ила:", hosts: "Урол бобо ўғли Мухиддин Худойназаровлар оиласи", salut: "Салют!"
     },
     ru: {
@@ -352,7 +386,7 @@ html,body{margin:0}
       dateLabel: "Дата торжества", dayLabel: "День недели", weekday: "Понедельник", month: "Ноябрь", timeLabel: "Начало в",
       wd: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
       countLabel: "До торжества осталось", cDays: "дней", cHours: "часов", cMin: "минут", cSec: "секунд",
-      placeLabel: "Адрес", venue: "Банкетный зал «Шукрона»", addr: "Камашинский район", map: "Открыть на карте",
+      placeLabel: "Адрес", venue: "Банкетный зал «Шукрона»", addr: "Камашинский район", map: "Открыть на карте", mapG: "Google Maps", mapY: "Yandex", route: "Маршрут", copied: "Скопировано",
       close: "Будем ждать Вас!", regards: "С уважением:", hosts: "Семья Мухиддина Худойназарова, сына Урол-бобо", salut: "Салют!"
     }
   };
@@ -378,7 +412,7 @@ html,body{margin:0}
     document.documentElement.lang = l === "ru" ? "ru" : "uz";
     document.querySelectorAll(".langs button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l)); });
     try { localStorage.setItem("inv-lang", l); } catch (e) {}
-    renderCal(); tick(); if (window.__env3d) window.__env3d.redraw();
+    renderCal(); tick(); if (window.__env3d) window.__env3d.redraw(); if (mapPin) mapPin.setTooltipContent(d.venue);
   }
   document.querySelectorAll(".langs button").forEach(function (b) { b.addEventListener("click", function (e) { e.stopPropagation(); apply(b.getAttribute("data-lang")); }); });
 
@@ -408,6 +442,34 @@ html,body{margin:0}
     }, { threshold: 0.55 });
     scenes.forEach(function (sc) { so.observe(sc); });
   }
+
+  /* ---------- map ---------- */
+  var LAT = 38.820827, LNG = 66.461820, mapObj = null, mapPin = null;
+  function initMap() {
+    var el = document.getElementById("map");
+    if (!el || typeof L === "undefined") return;
+    try {
+      mapObj = L.map(el, { zoomControl: false, scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false, zoomSnap: 0.5 }).setView([LAT, LNG], 16);
+      L.control.zoom({ position: "bottomright" }).addTo(mapObj);
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { subdomains: "abcd", maxZoom: 19, attribution: "&copy; OpenStreetMap &copy; CARTO" }).addTo(mapObj);
+      var icon = L.divIcon({ className: "pinwrap", iconSize: [44, 58], iconAnchor: [22, 56], html: '<div class="pin"><span class="pulse"></span><svg viewBox="0 0 44 58" width="44" height="58"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe7a8"/><stop offset="1" stop-color="#b98a3a"/></linearGradient></defs><path d="M22 56C22 56 4 35 4 21a18 18 0 1 1 36 0c0 14-18 35-18 35z" fill="url(#pg)" stroke="#6e4f17" stroke-width="1.5"/><circle cx="22" cy="21" r="7.5" fill="#8e1a1a"/></svg></div>' });
+      mapPin = L.marker([LAT, LNG], { icon: icon, keyboard: false }).addTo(mapObj);
+      mapPin.bindTooltip(T[lang].venue, { permanent: true, direction: "top", offset: [0, -52], className: "pintip" });
+      el.addEventListener("click", function () { mapObj.scrollWheelZoom.enable(); if (!L.Browser.mobile) mapObj.dragging.enable(); }, { once: true });
+      var place = document.getElementById("place");
+      if ("IntersectionObserver" in window && place) {
+        new IntersectionObserver(function (es, o) {
+          es.forEach(function (e) { if (e.isIntersecting) { setTimeout(function () { mapObj.invalidateSize(); mapObj.setView([LAT, LNG], 16); }, 1200); o.disconnect(); } });
+        }, { threshold: 0.3 }).observe(place);
+      }
+    } catch (err) {}
+  }
+  initMap();
+  document.getElementById("coordsBtn").addEventListener("click", function () {
+    var b = this, txt = LAT + ", " + LNG, sp = b.querySelector("span");
+    function done() { sp.textContent = T[lang].copied; setTimeout(function () { sp.textContent = "38.820827, 66.461820"; }, 1500); }
+    try { navigator.clipboard.writeText(txt).then(done, done); } catch (err) { done(); }
+  });
 
   /* ---------- scroll reveal ---------- */
   var io = null;
