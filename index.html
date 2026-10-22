@@ -191,7 +191,11 @@ html.js .nm.in { opacity: 1; letter-spacing: .01em; filter: none; }
 .mapwrap::after { content: ""; position: absolute; inset: 0; z-index: 500; pointer-events: none; box-shadow: inset 0 0 56px rgba(4,32,26,.75); }
 #map { height: clamp(200px, 31vh, 330px); background: var(--pat), #0a2a22; }
 .leaflet-container { font-family: var(--body); background: #0a2a22; outline: 0; }
-.leaflet-tile-pane { filter: sepia(.55) hue-rotate(112deg) saturate(1.25) brightness(1.12) contrast(1.05); }
+.tiles-street { filter: invert(1) hue-rotate(180deg) sepia(.55) hue-rotate(100deg) saturate(1.5) brightness(.95) contrast(.95); }
+.mtabs { position: absolute; left: 10px; top: 10px; z-index: 900; display: flex; border: 1px solid var(--gold-lo); background: rgba(4,32,26,.9); }
+.mtabs button { all: unset; cursor: pointer; padding: 6px 12px; font: 500 11px var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+.mtabs button.on { background: var(--gold); color: #2a1d05; }
+.mtabs button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
 .leaflet-bar { border: 1px solid var(--gold-lo); box-shadow: none; }
 .leaflet-bar a, .leaflet-bar a:hover { background: rgba(4,32,26,.9); color: var(--gold-hi); border-bottom: 1px solid var(--gold-lo); }
 .leaflet-control-zoom { z-index: 900; }
@@ -324,6 +328,7 @@ html,body{margin:0}
       <p class="addr" data-i18n="addr">Qamashi tumani</p>
       <div class="mapwrap">
         <div id="map" role="region" aria-label="Xarita"></div>
+        <div class="mtabs" role="group" aria-label="Xarita turi"><button type="button" class="on" data-m="street" data-i18n="mapStreet">Xarita</button><button type="button" data-m="sat" data-i18n="mapSat">Sputnik</button></div>
         <button type="button" class="coords" id="coordsBtn"><span>38.820827, 66.461820</span></button>
       </div>
       <div class="mlinks">
@@ -362,7 +367,7 @@ html,body{margin:0}
       dateLabel: "Tantana sanasi", dayLabel: "Hafta kuni", weekday: "Dushanba", month: "Noyabr", timeLabel: "Boshlanish vaqti",
       wd: ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"],
       countLabel: "Tantanaga qolgan vaqt", cDays: "kun", cHours: "soat", cMin: "daqiqa", cSec: "soniya",
-      placeLabel: "Manzil", venue: "“Shukrona” to'yxonasi", addr: "Qamashi tumani", map: "Xaritada ko'rish", mapG: "Google Maps", mapY: "Yandex", route: "Yo'nalish", copied: "Nusxalandi",
+      placeLabel: "Manzil", venue: "“Shukrona” to'yxonasi", addr: "Qamashi tumani", map: "Xaritada ko'rish", mapG: "Google Maps", mapY: "Yandex", route: "Yo'nalish", copied: "Nusxalandi", mapStreet: "Xarita", mapSat: "Sputnik",
       close: "Sizni kutib qolamiz!", regards: "Hurmat ila:", hosts: "Urol bobo o'g'li Muxiddin Xudoynazarovlar oilasi", salut: "Salyut!"
     },
     cy: {
@@ -374,7 +379,7 @@ html,body{margin:0}
       dateLabel: "Тантана санаси", dayLabel: "Ҳафта куни", weekday: "Душанба", month: "Ноябрь", timeLabel: "Бошланиш вақти",
       wd: ["Ду", "Се", "Чо", "Па", "Жу", "Ша", "Як"],
       countLabel: "Тантанага қолган вақт", cDays: "кун", cHours: "соат", cMin: "дақиқа", cSec: "сония",
-      placeLabel: "Манзил", venue: "“Шукрона” тўйхонаси", addr: "Қамаши тумани", map: "Харитада кўриш", mapG: "Google Maps", mapY: "Yandex", route: "Йўналиш", copied: "Нусхаланди",
+      placeLabel: "Манзил", venue: "“Шукрона” тўйхонаси", addr: "Қамаши тумани", map: "Харитада кўриш", mapG: "Google Maps", mapY: "Yandex", route: "Йўналиш", copied: "Нусхаланди", mapStreet: "Харита", mapSat: "Йўлдош",
       close: "Сизни кутиб қоламиз!", regards: "Ҳурмат ила:", hosts: "Урол бобо ўғли Мухиддин Худойназаровлар оиласи", salut: "Салют!"
     },
     ru: {
@@ -386,7 +391,7 @@ html,body{margin:0}
       dateLabel: "Дата торжества", dayLabel: "День недели", weekday: "Понедельник", month: "Ноябрь", timeLabel: "Начало в",
       wd: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
       countLabel: "До торжества осталось", cDays: "дней", cHours: "часов", cMin: "минут", cSec: "секунд",
-      placeLabel: "Адрес", venue: "Банкетный зал «Шукрона»", addr: "Камашинский район", map: "Открыть на карте", mapG: "Google Maps", mapY: "Yandex", route: "Маршрут", copied: "Скопировано",
+      placeLabel: "Адрес", venue: "Банкетный зал «Шукрона»", addr: "Камашинский район", map: "Открыть на карте", mapG: "Google Maps", mapY: "Yandex", route: "Маршрут", copied: "Скопировано", mapStreet: "Карта", mapSat: "Спутник",
       close: "Будем ждать Вас!", regards: "С уважением:", hosts: "Семья Мухиддина Худойназарова, сына Урол-бобо", salut: "Салют!"
     }
   };
@@ -451,7 +456,16 @@ html,body{margin:0}
     try {
       mapObj = L.map(el, { zoomControl: false, scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false, zoomSnap: 0.5 }).setView([LAT, LNG], 16);
       L.control.zoom({ position: "bottomright" }).addTo(mapObj);
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { subdomains: "abcd", maxZoom: 19, attribution: "&copy; OpenStreetMap &copy; CARTO" }).addTo(mapObj);
+      var street = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { subdomains: "abc", maxZoom: 19, className: "tiles-street", attribution: "&copy; OpenStreetMap contributors" });
+      var sat = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: "Tiles &copy; Esri" });
+      street.addTo(mapObj);
+      Array.prototype.forEach.call(document.querySelectorAll(".mtabs button"), function (b) {
+        b.addEventListener("click", function () {
+          var toSat = b.getAttribute("data-m") === "sat";
+          if (toSat) { mapObj.removeLayer(street); sat.addTo(mapObj); } else { mapObj.removeLayer(sat); street.addTo(mapObj); }
+          Array.prototype.forEach.call(document.querySelectorAll(".mtabs button"), function (x) { x.classList.toggle("on", x === b); });
+        });
+      });
       var icon = L.divIcon({ className: "pinwrap", iconSize: [44, 58], iconAnchor: [22, 56], html: '<div class="pin"><span class="pulse"></span><svg viewBox="0 0 44 58" width="44" height="58"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe7a8"/><stop offset="1" stop-color="#b98a3a"/></linearGradient></defs><path d="M22 56C22 56 4 35 4 21a18 18 0 1 1 36 0c0 14-18 35-18 35z" fill="url(#pg)" stroke="#6e4f17" stroke-width="1.5"/><circle cx="22" cy="21" r="7.5" fill="#8e1a1a"/></svg></div>' });
       mapPin = L.marker([LAT, LNG], { icon: icon, keyboard: false }).addTo(mapObj);
       mapPin.bindTooltip(T[lang].venue, { permanent: true, direction: "top", offset: [0, -52], className: "pintip" });
