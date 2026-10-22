@@ -101,6 +101,7 @@ html.js #intro { display: grid; }
 /* section dots */
 .dots { position: fixed; z-index: 80; right: max(10px, env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; opacity: 0; pointer-events: none; transition: opacity .6s; }
 .dots.show { opacity: 1; pointer-events: auto; }
+@media (max-width: 520px) { .dots { display: none; } }
 .dots button { all: unset; position: relative; cursor: pointer; width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--gold); transition: transform .3s, background .3s, box-shadow .3s; }
 .dots button::before { content: ""; position: absolute; inset: -9px; }
 .dots button.on { background: var(--gold); box-shadow: 0 0 10px var(--gold-hi); transform: scale(1.3); }
