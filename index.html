@@ -188,6 +188,10 @@ html.js .nm.in { opacity: 1; letter-spacing: .01em; filter: none; }
 .couple .a { display: block; font-size: .44em; font-weight: 400; font-style: italic; color: var(--gold); margin: 2px 0; background: none; -webkit-text-fill-color: currentColor; animation: none; }
 .joiner { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 24px; margin: 22px 0; display: flex; align-items: center; gap: 14px; justify-content: center; }
 .joiner::before, .joiner::after { content: ""; width: 44px; height: 1px; background: var(--gold); }
+.poem { max-width: 520px; margin: 0 auto; padding: 0 clamp(20px, 6vw, 40px); }
+.verse { font-family: var(--display); font-style: italic; font-size: clamp(19px, 4.8vw, 25px); line-height: 1.5; margin: 0 0 10px; text-wrap: balance; }
+.verse.last { margin-top: 18px; color: var(--gold); }
+.sign { font-family: var(--display); font-size: clamp(24px, 6vw, 32px); margin: 30px 0 0; letter-spacing: .02em; }
 .tail { font-family: var(--display); font-size: clamp(20px, 4.6vw, 25px); margin: 26px 0 0; text-wrap: balance; }
 
 /* date + calendar */
@@ -332,6 +336,20 @@ html,body{margin:0}
     </div>
   </section>
 
+  <section class="scene" id="poem">
+    <div class="poem">
+      <p class="eyebrow rv" data-i18n="poemLabel">Tilak</p>
+      <div class="orn rv"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z"/></svg></div>
+      <p class="verse rv" style="--d:.1s" data-i18n="p1"></p>
+      <p class="verse rv" style="--d:.25s" data-i18n="p2"></p>
+      <p class="verse rv" style="--d:.4s" data-i18n="p3"></p>
+      <p class="verse rv" style="--d:.55s" data-i18n="p4"></p>
+      <p class="verse rv" style="--d:.7s" data-i18n="p5"></p>
+      <p class="verse last rv" style="--d:.85s" data-i18n="p6"></p>
+      <p class="sign gold rv" style="--d:1s" data-i18n="poemSign">Davidjon &amp; Sarvinozxon</p>
+    </div>
+  </section>
+
   <section class="scene" id="date">
     <p class="eyebrow rv" data-i18n="dateLabel">Tantana sanasi</p>
     <div class="bigday rv">
@@ -430,6 +448,7 @@ html,body{margin:0}
       salom: "Assalomu alaykum!", title: "Aziz mehmonimiz bo'ling!", scroll: "Pastga suring",
       intro: "Sizni va oilangizni aziz farzandlarimiz",
       n2a: "Davidjon", amp2: "va", n2b: "Sarvinozxon",
+      poemLabel: "Tilak", poemSign: "Davidjon & Sarvinozxon", p1: "Ikki yurak bir bo'lgan bu onda,", p2: "Dil to'lsin shodlikka, ko'z — chiroqlarda.", p3: "Sevgi bo'lsin sizga yo'lboshchi,", p4: "Mehr bo'lsin umr yo'ldoshi.", p5: "Baxtli bo'ling, bir-biringizga tayanch,", p6: "Hayot sizga ochsin eng go'zal tong.",
       tail: "larning nikoh to'ylariga chin dildan taklif etamiz!",
       dateLabel: "Tantana sanasi", dayLabel: "Hafta kuni", weekday: "Dushanba", month: "Noyabr", timeLabel: "Boshlanish vaqti",
       wd: ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"],
@@ -443,6 +462,7 @@ html,body{margin:0}
       salom: "Ассалому алайкум!", title: "Азиз меҳмонимиз бўлинг!", scroll: "Пастга суринг",
       intro: "Сизни ва оилангизни азиз фарзандларимиз",
       n2a: "Давиджон", amp2: "ва", n2b: "Сарвинозхон",
+      poemLabel: "Тилак", poemSign: "Давиджон & Сарвинозхон", p1: "Икки юрак бир бўлган бу онда,", p2: "Дил тўлсин шодликка, кўз — чироқларда.", p3: "Севги бўлсин сизга йўлбошчи,", p4: "Меҳр бўлсин умр йўлдоши.", p5: "Бахтли бўлинг, бир-бирингизга таянч,", p6: "Ҳаёт сизга очсин энг гўзал тонг.",
       tail: "ларнинг никоҳ тўйларига чин қалбимиздан таклиф этамиз!",
       dateLabel: "Тантана санаси", dayLabel: "Ҳафта куни", weekday: "Душанба", month: "Ноябрь", timeLabel: "Бошланиш вақти",
       wd: ["Ду", "Се", "Чо", "Па", "Жу", "Ша", "Як"],
@@ -456,6 +476,7 @@ html,body{margin:0}
       salom: "Ассалому алейкум!", title: "Дорогой гость!", scroll: "Листайте вниз",
       intro: "Приглашаем Вас и Вашу семью на свадьбу наших детей",
       n2a: "Давиджон", amp2: "и", n2b: "Сарвинозхон",
+      poemLabel: "Пожелание", poemSign: "Давиджон & Сарвинозхон", p1: "В этот день два сердца стали одним,", p2: "Пусть счастье озарит ваш общий дом.", p3: "Любовь пусть будет путеводной звездой,", p4: "А нежность — спутницей на всём пути.", p5: "Будьте друг другу опорой и теплом,", p6: "Пусть жизнь дарит вам самый светлый рассвет.",
       tail: "Будем безмерно рады видеть Вас на нашем торжестве!",
       dateLabel: "Дата торжества", dayLabel: "День недели", weekday: "Понедельник", month: "Ноябрь", timeLabel: "Начало в",
       wd: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
@@ -1021,13 +1042,15 @@ html,body{margin:0}
       { x: 0.7, y: -0.05, s: 0.42, ry: -0.6, rx: -0.2, sp: 0.6 },
       { x: -0.7, y: 0.1, s: 0.45, ry: 0.5, rx: 0.3, sp: 0.6 },
       { x: 0.7, y: 0, s: 0.42, ry: -0.5, rx: -0.3, sp: 0.6 },
-      { x: -0.72, y: 0.05, s: 0.42, ry: 0.5, rx: 0.25, sp: 0.6 },
+      { x: -0.7, y: 0.05, s: 0.42, ry: 0.5, rx: 0.25, sp: 0.6 },
+      { x: 0.72, y: 0.05, s: 0.42, ry: -0.5, rx: -0.25, sp: 0.6 },
       { x: 0, y: null, s: 1, ry: 0, rx: 0, sp: 1 }
     ];
     var KFN = [ // phones: rings sit in the empty band above or below the content
       { x: 0, y: null, s: 1, ry: 0, rx: 0, sp: 1 },
       { x: -0.3, y: -0.84, s: 0.5, ry: 0.5, rx: 0.25, sp: 0.7 },
       { x: 0.35, y: 0.86, s: 0.5, ry: -0.5, rx: -0.2, sp: 0.7 },
+      { x: -0.3, y: -0.82, s: 0.45, ry: 0.4, rx: 0.2, sp: 0.7 },
       { x: 0, y: 0.55, s: 0.8, ry: 0, rx: 0.4, sp: 0.65 },
       { x: 0, y: -0.62, s: 0.7, ry: 0.3, rx: -0.3, sp: 0.8 },
       { x: 0.3, y: 0.9, s: 0.4, ry: -0.4, rx: 0.2, sp: 0.7 },
