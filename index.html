@@ -104,6 +104,40 @@ html.js #intro { display: grid; }
 #intro.gl3d .env-wrap { display: none; }
 #intro.gl3d .intro-hint { position: absolute; left: 0; right: 0; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); z-index: 3; pointer-events: none; transition: opacity .5s; }
 #intro.gl3d.opening .intro-hint { opacity: 0; }
+[hidden] { display: none !important; }
+.rsvp-card { position: relative; max-width: 560px; margin: 0 auto; padding: clamp(24px, 5vw, 38px) clamp(16px, 4vw, 34px); border: 1px solid var(--gold-lo); outline: 1px solid rgba(217,182,106,.4); outline-offset: 9px; background: var(--pat), linear-gradient(180deg, rgba(14,70,54,.5), rgba(3,23,15,.55)); text-align: left; }
+.rsvp-card::before, .rsvp-card::after { content: ""; position: absolute; width: 40px; height: 40px; border: 2px solid var(--gold); }
+.rsvp-card::before { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
+.rsvp-card::after { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
+.rsvp-card .eyebrow { text-align: center; }
+.rsvp-title { font-family: var(--display); font-size: clamp(30px, 8vw, 44px); font-weight: 700; line-height: 1.1; margin: 0; text-align: center; text-wrap: balance; }
+.rsvp-sub { text-align: center; color: var(--ink-soft); margin: 6px 0 16px; font-size: 15px; }
+.fld { display: block; margin-bottom: 12px; }
+.fld > span { display: block; font: 500 11px var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.fld input, .fld textarea { width: 100%; box-sizing: border-box; background: rgba(3,23,15,.62); border: 1px solid var(--gold-lo); color: var(--ink); font: 400 16px var(--body); padding: 12px 14px; border-radius: 0; resize: vertical; }
+.fld input::placeholder, .fld textarea::placeholder { color: rgba(205,191,152,.5); }
+.fld input:focus, .fld textarea:focus { outline: 2px solid var(--gold-hi); outline-offset: 1px; border-color: var(--gold); }
+.choice { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice label { display: grid; place-items: center; text-align: center; padding: 13px 8px; border: 1px solid var(--gold-lo); cursor: pointer; font: 500 14px/1.25 var(--body); color: var(--ink-soft); background: rgba(3,23,15,.45); transition: background .25s, color .25s, box-shadow .25s; }
+.choice input:checked + label { background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: #2a1d05; border-color: transparent; box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+.choice input:focus-visible + label { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+.guests { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; padding: 10px 14px; border: 1px solid var(--gold-lo); background: rgba(3,23,15,.45); }
+.guests.off { display: none; }
+.gl > span { display: block; font: 500 14px var(--body); }
+.gl small { color: var(--ink-soft); font-size: 12px; }
+.step { display: flex; align-items: center; gap: 10px; }
+.step button { all: unset; cursor: pointer; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--gold); color: var(--gold-hi); font: 600 22px var(--body); }
+.step button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+.step output { min-width: 30px; text-align: center; font: 700 28px var(--display); color: var(--gold-hi); font-variant-numeric: tabular-nums; }
+.err { color: #ffb4a8; font-size: 14px; margin: 0 0 10px; }
+.send { width: 100%; }
+.thanks { text-align: center; padding-block: 8px; }
+.thx { font-family: var(--display); font-size: clamp(32px, 8.5vw, 46px); font-weight: 700; line-height: 1.1; margin: 6px 0 10px; text-wrap: balance; }
+.thx-sub { color: var(--ink-soft); margin: 0 0 20px; }
+.mlinks.two { grid-template-columns: 1fr 1fr; }
+.ghostbtn { all: unset; cursor: pointer; display: block; text-align: center; padding: 13px 6px; border: 1px solid var(--gold); color: var(--gold-hi); font: 500 12px var(--body); letter-spacing: .12em; text-transform: uppercase; box-sizing: border-box; }
+.ghostbtn:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
 /* section dots */
 .dots { position: fixed; z-index: 80; right: max(10px, env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; opacity: 0; pointer-events: none; transition: opacity .6s; }
 .dots.show { opacity: 1; pointer-events: auto; }
@@ -339,6 +373,38 @@ html,body{margin:0}
     </div>
   </section>
 
+  <section class="scene" id="rsvp">
+    <div class="rsvp-card rv">
+      <p class="eyebrow" data-i18n="rsvpLabel">Javob bering</p>
+      <h2 class="rsvp-title gold" data-i18n="rsvpTitle">To'yga kelasizmi?</h2>
+      <p class="rsvp-sub" data-i18n="rsvpSub">Kelishingizni oldindan bildirsangiz, xursand bo'lamiz</p>
+      <form id="rsvpForm" novalidate>
+        <label class="fld" for="fName"><span data-i18n="fName">Ism va familiya</span>
+          <input id="fName" name="name" type="text" autocomplete="name" maxlength="80" data-i18n-ph="fNamePh" placeholder="Masalan: Aziz Karimov"></label>
+        <div class="choice" role="radiogroup" aria-label="RSVP">
+          <input type="radio" name="att" id="attYes" value="yes"><label for="attYes" data-i18n="yes">Albatta kelaman</label>
+          <input type="radio" name="att" id="attNo" value="no"><label for="attNo" data-i18n="no">Kela olmayman</label>
+        </div>
+        <div class="guests off" id="guestsBox">
+          <span class="gl"><span data-i18n="fGuests">Necha kishi kelasiz?</span><small data-i18n="fGuestsHint">o'zingiz bilan birga</small></span>
+          <div class="step"><button type="button" id="gMinus" aria-label="-">&minus;</button><output id="gVal">1</output><button type="button" id="gPlus" aria-label="+">+</button></div>
+        </div>
+        <label class="fld" for="fMsg"><span data-i18n="fMsg">Tilak yoki xabar</span>
+          <textarea id="fMsg" rows="3" maxlength="400" data-i18n-ph="fMsgPh" placeholder="Yangi turmush qurganlarga tilak yozing..."></textarea></label>
+        <p class="err" id="rsvpErr" role="alert" hidden></p>
+        <button class="btn send" type="submit" data-i18n="send">Yuborish</button>
+      </form>
+      <div class="thanks" id="rsvpThanks" hidden>
+        <p class="thx gold" id="thxTitle">Rahmat!</p>
+        <p class="thx-sub" data-i18n="tgNote">Telegram ochilgach, "Yuborish" tugmasini bosing.</p>
+        <div class="mlinks two">
+          <a class="primary" id="tgLink" href="#" target="_blank" rel="noopener" data-i18n="tgSend">Telegram orqali yuborish</a>
+          <button type="button" class="ghostbtn" id="copyMsg" data-i18n="copyMsg">Matnni nusxalash</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="scene" id="closing">
     <div class="ring-anchor" id="ra2"></div>
     <h2 class="big gold nm" data-i18n="close">Sizni kutib qolamiz!</h2>
@@ -368,6 +434,7 @@ html,body{margin:0}
       wd: ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"],
       countLabel: "Tantanaga qolgan vaqt", cDays: "kun", cHours: "soat", cMin: "daqiqa", cSec: "soniya",
       placeLabel: "Manzil", venue: "“Shukrona” to'yxonasi", addr: "Qamashi tumani", map: "Xaritada ko'rish", mapG: "Google Maps", mapY: "Yandex", route: "Yo'nalish", copied: "Nusxalandi", mapStreet: "Xarita", mapSat: "Sputnik",
+      rsvpLabel: "Javob bering", rsvpTitle: "To'yga kelasizmi?", rsvpSub: "Kelishingizni oldindan bildirsangiz, xursand bo'lamiz", fName: "Ism va familiya", fNamePh: "Masalan: Aziz Karimov", yes: "Albatta kelaman", no: "Kela olmayman", fGuests: "Necha kishi kelasiz?", fGuestsHint: "o'zingiz bilan birga", fMsg: "Tilak yoki xabar", fMsgPh: "Yangi turmush qurganlarga tilak yozing...", send: "Yuborish", errName: "Ism va familiyangizni yozing", errChoice: "Kelish-kelmasligingizni tanlang", thanksYes: "Rahmat! Sizni kutamiz", thanksNo: "Xabaringiz uchun rahmat", tgSend: "Telegram orqali yuborish", copyMsg: "Matnni nusxalash", copiedMsg: "Nusxalandi", tgNote: "Telegram ochilgach, \"Yuborish\" tugmasini bosing.", mHello: "Assalomu alaykum! Taklifnoma uchun rahmat.", mName: "Ism familiya", mAns: "Javob", mYes: "Albatta kelaman", mNo: "Afsuski, kela olmayman", mGuests: "Kishi soni", mNote: "Tilak",
       close: "Sizni kutib qolamiz!", regards: "Hurmat ila:", hosts: "Urol bobo o'g'li Muxiddin Xudoynazarovlar oilasi", salut: "Salyut!"
     },
     cy: {
@@ -380,6 +447,7 @@ html,body{margin:0}
       wd: ["Ду", "Се", "Чо", "Па", "Жу", "Ша", "Як"],
       countLabel: "Тантанага қолган вақт", cDays: "кун", cHours: "соат", cMin: "дақиқа", cSec: "сония",
       placeLabel: "Манзил", venue: "“Шукрона” тўйхонаси", addr: "Қамаши тумани", map: "Харитада кўриш", mapG: "Google Maps", mapY: "Yandex", route: "Йўналиш", copied: "Нусхаланди", mapStreet: "Харита", mapSat: "Йўлдош",
+      rsvpLabel: "Жавоб беринг", rsvpTitle: "Тўйга келасизми?", rsvpSub: "Келишингизни олдиндан билдирсангиз, хурсанд бўламиз", fName: "Исм ва фамилия", fNamePh: "Масалан: Азиз Каримов", yes: "Албатта келаман", no: "Кела олмайман", fGuests: "Неча киши келасиз?", fGuestsHint: "ўзингиз билан бирга", fMsg: "Тилак ёки хабар", fMsgPh: "Янги турмуш қурганларга тилак ёзинг...", send: "Юбориш", errName: "Исм ва фамилиянгизни ёзинг", errChoice: "Келиш-келмаслигингизни танланг", thanksYes: "Раҳмат! Сизни кутамиз", thanksNo: "Хабарингиз учун раҳмат", tgSend: "Telegram орқали юбориш", copyMsg: "Матнни нусхалаш", copiedMsg: "Нусхаланди", tgNote: "Telegram очилгач, «Юбориш» тугмасини босинг.", mHello: "Ассалому алайкум! Таклифнома учун раҳмат.", mName: "Исм фамилия", mAns: "Жавоб", mYes: "Албатта келаман", mNo: "Афсуски, кела олмайман", mGuests: "Киши сони", mNote: "Тилак",
       close: "Сизни кутиб қоламиз!", regards: "Ҳурмат ила:", hosts: "Урол бобо ўғли Мухиддин Худойназаровлар оиласи", salut: "Салют!"
     },
     ru: {
@@ -392,6 +460,7 @@ html,body{margin:0}
       wd: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
       countLabel: "До торжества осталось", cDays: "дней", cHours: "часов", cMin: "минут", cSec: "секунд",
       placeLabel: "Адрес", venue: "Банкетный зал «Шукрона»", addr: "Камашинский район", map: "Открыть на карте", mapG: "Google Maps", mapY: "Yandex", route: "Маршрут", copied: "Скопировано", mapStreet: "Карта", mapSat: "Спутник",
+      rsvpLabel: "Ответьте нам", rsvpTitle: "Вы придёте на свадьбу?", rsvpSub: "Будем рады, если вы заранее сообщите о своём решении", fName: "Имя и фамилия", fNamePh: "Например: Азиз Каримов", yes: "Обязательно приду", no: "Не смогу прийти", fGuests: "Сколько вас будет?", fGuestsHint: "включая вас", fMsg: "Пожелание или сообщение", fMsgPh: "Напишите пожелание молодожёнам...", send: "Отправить", errName: "Укажите имя и фамилию", errChoice: "Выберите, придёте ли вы", thanksYes: "Спасибо! Ждём вас", thanksNo: "Спасибо за ответ", tgSend: "Отправить в Telegram", copyMsg: "Скопировать текст", copiedMsg: "Скопировано", tgNote: "Когда откроется Telegram, нажмите «Отправить».", mHello: "Ассалому алейкум! Спасибо за приглашение.", mName: "Имя и фамилия", mAns: "Ответ", mYes: "Обязательно приду", mNo: "К сожалению, не смогу прийти", mGuests: "Количество гостей", mNote: "Пожелание",
       close: "Будем ждать Вас!", regards: "С уважением:", hosts: "Семья Мухиддина Худойназарова, сына Урол-бобо", salut: "Салют!"
     }
   };
@@ -415,6 +484,8 @@ html,body{margin:0}
       if (typeof d[k] === "string") el.textContent = d[k];
     });
     document.documentElement.lang = l === "ru" ? "ru" : "uz";
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { var k = el.getAttribute("data-i18n-ph"); if (typeof d[k] === "string") el.placeholder = d[k]; });
+    if (window.__rsvpLang) window.__rsvpLang();
     document.querySelectorAll(".langs button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l)); });
     try { localStorage.setItem("inv-lang", l); } catch (e) {}
     renderCal(); tick(); if (window.__env3d) window.__env3d.redraw(); if (mapPin) mapPin.setTooltipContent(d.venue);
@@ -484,6 +555,50 @@ html,body{margin:0}
     function done() { sp.textContent = T[lang].copied; setTimeout(function () { sp.textContent = "38.820827, 66.461820"; }, 1500); }
     try { navigator.clipboard.writeText(txt).then(done, done); } catch (err) { done(); }
   });
+
+  /* ---------- RSVP: the answer opens in the host's Telegram ---------- */
+  var RSVP_TG = ""; // host's Telegram username, without @
+  (function () {
+    var form = document.getElementById("rsvpForm");
+    if (!form) return;
+    var nameEl = document.getElementById("fName"), msgEl = document.getElementById("fMsg"), gBox = document.getElementById("guestsBox"), gVal = document.getElementById("gVal");
+    var errEl = document.getElementById("rsvpErr"), thanks = document.getElementById("rsvpThanks"), tgLink = document.getElementById("tgLink"), copyBtn = document.getElementById("copyMsg"), thxTitle = document.getElementById("thxTitle");
+    var guests = 1, lastText = "", lastAns = "", siteUrl = location.origin + location.pathname;
+    function setG(n) { guests = Math.max(1, Math.min(10, n)); gVal.textContent = guests; }
+    document.getElementById("gMinus").addEventListener("click", function () { setG(guests - 1); });
+    document.getElementById("gPlus").addEventListener("click", function () { setG(guests + 1); });
+    Array.prototype.forEach.call(form.querySelectorAll('input[name="att"]'), function (r) {
+      r.addEventListener("change", function () { gBox.classList.toggle("off", form.elements["att"].value !== "yes"); errEl.hidden = true; });
+    });
+    function showErr(t) { errEl.textContent = t; errEl.hidden = false; }
+    function build(att) {
+      var d = T[lang], rows = [d.mHello, d.mName + ": " + nameEl.value.trim(), d.mAns + ": " + (att === "yes" ? d.mYes : d.mNo)];
+      if (att === "yes") rows.push(d.mGuests + ": " + guests);
+      if (msgEl.value.trim()) rows.push(d.mNote + ": " + msgEl.value.trim());
+      return rows.join("\n");
+    }
+    function tgUrl(text) {
+      return RSVP_TG ? "https://t.me/" + RSVP_TG + "?text=" + encodeURIComponent(text) : "https://t.me/share/url?url=" + encodeURIComponent(siteUrl) + "&text=" + encodeURIComponent(text);
+    }
+    function refresh() { if (!thanks.hidden) thxTitle.textContent = lastAns === "yes" ? T[lang].thanksYes : T[lang].thanksNo; }
+    window.__rsvpLang = refresh;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var d = T[lang], att = form.elements["att"].value;
+      if (!nameEl.value.trim()) { showErr(d.errName); nameEl.focus(); return; }
+      if (!att) { showErr(d.errChoice); return; }
+      lastText = build(att); lastAns = att;
+      var url = tgUrl(lastText);
+      tgLink.href = url;
+      form.hidden = true; thanks.hidden = false; refresh();
+      if (att === "yes" && !reduce) { burst(FWW * 0.3, FWH * 0.4); burst(FWW * 0.7, FWH * 0.35); }
+      try { window.open(url, "_blank", "noopener"); } catch (err) {}
+    });
+    copyBtn.addEventListener("click", function () {
+      function done() { copyBtn.textContent = T[lang].copiedMsg; setTimeout(function () { copyBtn.textContent = T[lang].copyMsg; }, 1500); }
+      try { navigator.clipboard.writeText(lastText).then(done, done); } catch (err) { done(); }
+    });
+  })();
 
   /* ---------- scroll reveal ---------- */
   var io = null;
@@ -878,6 +993,7 @@ html,body{margin:0}
       { x: 0.7, y: -0.05, s: 0.42, ry: -0.6, rx: -0.2, sp: 0.6 },
       { x: -0.7, y: 0.1, s: 0.45, ry: 0.5, rx: 0.3, sp: 0.6 },
       { x: 0.7, y: 0, s: 0.42, ry: -0.5, rx: -0.3, sp: 0.6 },
+      { x: -0.72, y: 0.05, s: 0.42, ry: 0.5, rx: 0.25, sp: 0.6 },
       { x: 0, y: null, s: 1, ry: 0, rx: 0, sp: 1 }
     ];
     var KFN = [ // phones: rings sit in the empty band above or below the content
@@ -886,6 +1002,7 @@ html,body{margin:0}
       { x: 0.35, y: 0.86, s: 0.5, ry: -0.5, rx: -0.2, sp: 0.7 },
       { x: 0, y: 0.55, s: 0.8, ry: 0, rx: 0.4, sp: 0.65 },
       { x: 0, y: -0.62, s: 0.7, ry: 0.3, rx: -0.3, sp: 0.8 },
+      { x: 0.3, y: 0.9, s: 0.4, ry: -0.4, rx: 0.2, sp: 0.7 },
       { x: 0, y: null, s: 1, ry: 0, rx: 0, sp: 1 }
     ];
     var KF = [], tops = [], S0 = 0.5, cur = { ry: 0, rx: 0, sp: 1 };
