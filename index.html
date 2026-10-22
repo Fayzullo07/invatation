@@ -566,16 +566,16 @@ html,body{margin:0}
       var cam = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
       var tanH = Math.tan(35 * Math.PI / 360), camZ = 9, camY = 0.35, letterD = 4;
 
-      sc.add(new THREE.AmbientLight(0xfff1d6, 0.7));
-      var key = new THREE.PointLight(0xfff0cc, 1.5, 40); key.position.set(-4, 4, 7); sc.add(key);
-      var rim = new THREE.PointLight(0xffc766, 1.0, 30); rim.position.set(5, 1, 4); sc.add(rim);
-      var fillL = new THREE.PointLight(0x9fe0c4, 0.35, 30); fillL.position.set(3, -4, 5); sc.add(fillL);
+      sc.add(new THREE.AmbientLight(0xfff1d6, 0.42));
+      var key = new THREE.PointLight(0xfff0cc, 0.8, 40); key.position.set(-4, 4, 7); sc.add(key);
+      var rim = new THREE.PointLight(0xffc766, 0.45, 30); rim.position.set(5, 1, 4); sc.add(rim);
+      var fillL = new THREE.PointLight(0x9fe0c4, 0.18, 30); fillL.position.set(3, -4, 5); sc.add(fillL);
 
       var W = 3.2, H = 2.1, LW = 2.9, LH = 1.8, FH = H * 0.58;
-      var pocketMat = new THREE.MeshStandardMaterial({ color: 0xdcb566, roughness: 0.45, metalness: 0.3 });
-      var linerMat = new THREE.MeshStandardMaterial({ color: 0x8f6a2b, roughness: 0.8, metalness: 0.05 });
-      var flapOutMat = new THREE.MeshStandardMaterial({ color: 0xf0d698, roughness: 0.4, metalness: 0.3 });
-      var flapInMat = new THREE.MeshStandardMaterial({ color: 0x9a7430, roughness: 0.75, metalness: 0.05, side: THREE.BackSide });
+      var pocketMat = new THREE.MeshStandardMaterial({ color: 0xc99f4c, roughness: 0.5, metalness: 0.25 });
+      var linerMat = new THREE.MeshStandardMaterial({ color: 0x6f5120, roughness: 0.85, metalness: 0.05 });
+      var flapOutMat = new THREE.MeshStandardMaterial({ color: 0xd8b25e, roughness: 0.5, metalness: 0.25 });
+      var flapInMat = new THREE.MeshStandardMaterial({ color: 0x7d5c24, roughness: 0.8, metalness: 0.05, side: THREE.BackSide });
 
       var env = new THREE.Group(); sc.add(env);
       var back = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.03), [pocketMat, pocketMat, pocketMat, pocketMat, linerMat, pocketMat]);
@@ -603,8 +603,10 @@ html,body{margin:0}
       var sealTex = new THREE.CanvasTexture(sealC); sealTex.encoding = THREE.sRGBEncoding;
       var sealSide = new THREE.MeshStandardMaterial({ color: 0x7a120d, roughness: 0.5 });
       var sealGeo = new THREE.CylinderGeometry(0.26, 0.26, 0.07, 48); sealGeo.rotateX(Math.PI / 2);
-      var seal = new THREE.Mesh(sealGeo, [sealSide, new THREE.MeshStandardMaterial({ map: sealTex, roughness: 0.35, metalness: 0.2 }), sealSide]);
+      var seal = new THREE.Mesh(sealGeo, sealSide);
       seal.position.set(0, -FH + 0.3, 0.04); flap.add(seal);
+      var sealFace = new THREE.Mesh(new THREE.CircleGeometry(0.26, 48), new THREE.MeshStandardMaterial({ map: sealTex, roughness: 0.35, metalness: 0.2 }));
+      sealFace.position.z = 0.037; seal.add(sealFace);
 
       // letter
       var lc = document.createElement("canvas"); lc.width = 1160; lc.height = 720;
@@ -656,7 +658,7 @@ html,body{margin:0}
       function fit() {
         var w = innerWidth, h = innerHeight, asp = w / h;
         rr.setSize(w, h, false); cam.aspect = asp; cam.updateProjectionMatrix();
-        camZ = Math.max((3.6 / 0.84) / (2 * tanH * asp), 6.6 / 1);
+        camZ = Math.max((3.6 / 0.84) / (2 * tanH * asp), 8.2);
         letterD = Math.max((LW / 0.9) / (2 * tanH * asp), (LH / 0.78) / (2 * tanH));
         cam.position.set(0, camY, camZ); cam.lookAt(0, camY, 0);
       }
