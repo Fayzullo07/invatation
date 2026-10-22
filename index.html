@@ -794,27 +794,53 @@ html,body{margin:0}
     var speed = reduce ? 0.25 : 1, clock = new THREE.Clock(), vis = true;
     document.addEventListener("visibilitychange", function () { vis = !document.hidden; if (vis) { clock.getDelta(); loop(); } });
 
-    var tpos = new THREE.Vector3(), tscale = 1;
+    var scenesEls = Array.prototype.slice.call(document.querySelectorAll(".scene"));
+    // where the rings sit on each screen: x/y in -1..1 of the viewport, s = size vs. the hero, ry/rx = tilt, sp = gap between the two rings
+    var KF0 = [
+      { x: 0, y: null, s: 1, ry: 0, rx: 0, sp: 1 },
+      { x: -0.6, y: -0.52, s: 0.55, ry: 0.55, rx: 0.25, sp: 0.8 },
+      { x: 0.62, y: 0.5, s: 0.55, ry: -0.55, rx: -0.2, sp: 0.75 },
+      { x: 0, y: 0.6, s: 0.8, ry: 0, rx: 0.4, sp: 0.65 },
+      { x: 0, y: -0.68, s: 0.8, ry: 0.35, rx: -0.3, sp: 0.9 },
+      { x: 0, y: null, s: 1, ry: 0, rx: 0, sp: 1 }
+    ];
+    var KF = [], tops = [], S0 = 0.5, cur = { ry: 0, rx: 0, sp: 1 };
+    function layout() {
+      var u = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z / H, sy = window.scrollY || 0;
+      tops = scenesEls.map(function (e) { return e.getBoundingClientRect().top + sy; });
+      var r0 = anchors[0].getBoundingClientRect();
+      S0 = Math.max(0.25, Math.min(r0.width * u / 7.8, r0.height * u / 3.5));
+      KF = KF0.map(function (kf, i) {
+        var yy;
+        if (kf.y === null) {
+          var an = anchors[i === 0 ? 0 : 1].getBoundingClientRect();
+          yy = -(an.top + sy + an.height / 2 - tops[i] - H / 2) * u;
+        } else { yy = kf.y * (H / 2) * u; }
+        return { x: kf.x * (W / 2) * u, y: yy, s: S0 * kf.s, ry: kf.ry, rx: kf.rx, sp: kf.sp };
+      });
+    }
+    layout(); addEventListener("resize", layout); addEventListener("load", layout);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(layout); }
+    setInterval(layout, 1500);
     function loop() {
       if (!vis) return;
       requestAnimationFrame(loop);
       var dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
-      // choose the anchor nearest the screen centre
-      var best = null, bd = 1e9, u = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z / H;
-      for (var a = 0; a < anchors.length; a++) {
-        var r = anchors[a].getBoundingClientRect(), cy = r.top + r.height / 2, d = Math.abs(cy - H / 2);
-        if (d < bd) { bd = d; best = r; }
-      }
-      if (best) {
-        tpos.set((best.left + best.width / 2 - W / 2) * u, -(best.top + best.height / 2 - H / 2) * u, 0);
-        tscale = Math.max(0.25, Math.min(best.width * u / 7.8, best.height * u / 3.5));
-      }
-      var k = 1 - Math.pow(0.001, dt);
-      rg.position.x += (tpos.x - rg.position.x) * k * 0.9;
-      rg.position.y += (tpos.y - rg.position.y) * k * 0.9;
-      rg.scale.setScalar(rg.scale.x + (tscale - rg.scale.x) * k);
+      // rings glide between the per-screen positions as the page scrolls
+      var sy = window.scrollY || 0, ia = 0;
+      for (var q = 0; q < tops.length; q++) { if (sy >= tops[q] - 2) ia = q; }
+      var ib = Math.min(ia + 1, tops.length - 1), span = tops[ib] - tops[ia];
+      var tt = span > 0 ? Math.max(0, Math.min(1, (sy - tops[ia]) / span)) : 0, ee = tt * tt * (3 - 2 * tt);
+      var A = KF[ia], B = KF[ib];
+      var tg = { x: A.x + (B.x - A.x) * ee, y: A.y + (B.y - A.y) * ee, s: A.s + (B.s - A.s) * ee, ry: A.ry + (B.ry - A.ry) * ee, rx: A.rx + (B.rx - A.rx) * ee, sp: A.sp + (B.sp - A.sp) * ee };
+      var kf = 1 - Math.pow(0.03, dt);
+      rg.position.x += (tg.x - rg.position.x) * kf;
+      rg.position.y += (tg.y - rg.position.y) * kf;
+      rg.scale.setScalar(rg.scale.x + (tg.s - rg.scale.x) * kf);
+      cur.ry += (tg.ry - cur.ry) * kf; cur.rx += (tg.rx - cur.rx) * kf; cur.sp += (tg.sp - cur.sp) * kf;
+      pairs[0].position.x = -2.15 * cur.sp; pairs[1].position.x = 2.15 * cur.sp;
       mx += (tx - mx) * 0.06; my += (ty - my) * 0.06;
-      rg.rotation.y = mx * 0.8; rg.rotation.x = my * 0.5;
+      rg.rotation.y = mx * 0.8 + cur.ry; rg.rotation.x = my * 0.5 + cur.rx;
       pairs[0].rotation.y = t * 0.55 * speed; pairs[0].rotation.x = 0.35 + Math.sin(t * 0.7) * 0.15; pairs[0].rotation.z = 0.2;
       pairs[1].rotation.y = -t * 0.45 * speed + 1; pairs[1].rotation.x = 0.3 + Math.cos(t * 0.6) * 0.15; pairs[1].rotation.z = -0.2;
       halo.material.opacity = 0.42 + Math.sin(t * 1.4) * 0.12;
