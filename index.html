@@ -749,7 +749,7 @@ html,body{margin:0}
     step = (step + 16) % PH.length;
     timer = setTimeout(schedule, 16 * beat * 1000 - 150);
   }
-  function startMusic() {
+  function startSynth() {
     try {
       var AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return;
@@ -769,7 +769,22 @@ html,body{margin:0}
       btn.setAttribute("aria-pressed", "true");
     } catch (e) {}
   }
-  function stopMusic() { playing = false; clearTimeout(timer); if (ctx) { try { ctx.suspend(); } catch (e) {} } btn.setAttribute("aria-pressed", "false"); }
+  function stopSynth() { playing = false; clearTimeout(timer); if (ctx) { try { ctx.suspend(); } catch (e) {} } btn.setAttribute("aria-pressed", "false"); }
+  /* A real song: put the file next to index.html as "music.mp3" and set HAS_TRACK = true. */
+  var HAS_TRACK = false, track = null;
+  function startMusic() {
+    if (!HAS_TRACK) { startSynth(); return; }
+    try {
+      if (!track) { track = new Audio("music.mp3"); track.loop = true; track.volume = 0.85; }
+      var p = track.play(); if (p && p.catch) p.catch(function () { playing = false; btn.setAttribute("aria-pressed", "false"); });
+      playing = true; btn.setAttribute("aria-pressed", "true");
+    } catch (e) {}
+  }
+  function stopMusic() {
+    if (!HAS_TRACK) { stopSynth(); return; }
+    if (track) track.pause();
+    playing = false; btn.setAttribute("aria-pressed", "false");
+  }
   btn.addEventListener("click", function () { playing ? stopMusic() : startMusic(); });
 
   /* ---------- intro ---------- */
